@@ -1,0 +1,32 @@
+{
+  "name": "expenses-tracker",
+  "version": "1.0.0",
+  "proxy": "http://localhost:8000",
+  "repository": "https://github.com/jasminder-k/expenses-tracker.git",
+  "main": "index.js",
+  "author": "Jasminder Kaur <jassi5991@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "components": "^0.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
+    "react-scripts": "^5.0.1",
+    "styled-components": "^6.1.8"
+  },
+  "scripts": {
+    "start": "react-scripts start"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
