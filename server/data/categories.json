@@ -1,0 +1,52 @@
+[
+  {
+    "value": "fruits",
+    "label": "Fruits",
+    "_id": "4a0e3d89-10bb-4e54-9312-5ef709276a88"
+  },
+  {
+    "value": "vegetables",
+    "label": "Vegetables",
+    "_id": "4a0e3d89-10bb-4e54-9312-5ef709276b79"
+  },
+  {
+    "value": "transportation",
+    "label": "Transportation",
+    "_id": "7a0e3d89-10bb-4e56-9312-5ef709276a11"
+  },
+  {
+    "value": "education",
+    "label": "Education",
+    "_id": "8b0e3d90-11cb-4d54-9312-5ef709276a00"
+  },
+  {
+    "value": "bills",
+    "label": "Bills",
+    "_id": "3b0e3d57-11dr-7f76-4231-4ef709276d57"
+  },
+  {
+    "value": "grocery",
+    "label": "Grocery",
+    "_id": "3b0e5f69-51sd-2c87-9201-9ef70234f29"
+  },
+  {
+    "value": "rent",
+    "label": "Rent",
+    "_id": "8b0e7r96-14uf-1z98-7629-6nk70234w28"
+  },
+  {
+    "value": "sports",
+    "label": "Sports",
+    "_id": "1a1t9r78-51db-3y09-0987-9uy94321p19"
+  },
+  {
+    "value": "entertainment",
+    "label": "Entertainment",
+    "_id": "3z0e5f69-11cb-4d54-9201-5ef709276a05"
+  },
+  {
+    "value": "miscellaneous",
+    "label": "Miscellaneous",
+    "_id": "7a0e5f69-11cb-4d54-9201-5ef709276a09"
+  }
+]
