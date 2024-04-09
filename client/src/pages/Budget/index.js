@@ -4,13 +4,33 @@ import { useEffect } from "react";
 import { LoggedInUserContext } from "../../contexts/LoggedInUserContext";
 import styled from "styled-components";
 import Table from "../../Table";
+import BudgetForm from "../../BudgetForm";
 
 const Budget = () => {
 const { name } = useParams();
 const {_id} = useParams();
-const [userDetails, setUserDetails] = useState(null);
+const [budgets, setBudgets] = useState(null);
+const [showForm, setShowForm] = useState(false);
   const context = useContext(LoggedInUserContext);
   const loggedInUser = context.loggedInUser;
+
+  useEffect(() => {
+    const getBudgets = async () => {
+        try {
+          if(loggedInUser.budgets.count > 0 ){
+            loggedInUser.budgets.forEach(element => {
+              const res = fetch(`/budget/${element}`).json();
+              setBudgets(res);
+            });
+          }
+          
+        } catch (err) {
+          console.error(err);
+        }
+      };
+     
+      getBudgets();
+  }, budgets);
 
   //console.log(faceDetails)
   return (
@@ -19,8 +39,10 @@ const [userDetails, setUserDetails] = useState(null);
       // in case if there is not any budget show the create budget form# show no budgets to show and a button add budget
       loggedInUser ? (
         <main>
-          {loggedInUser.budgets.count>0 ? 
-            <Table/> : <div><button>Create budget</button></div>}
+          {
+          loggedInUser.budgets.count>0 ? 
+            <Table heading={Object.keys(budgets)} data={Object.values(budgets)}/> : <div><button onClick={()=>setShowForm(true)}>Create budget</button></div>}
+            {showForm && <BudgetForm/>}
         </main>
       ) : (
         <Centered>Loading ...</Centered>

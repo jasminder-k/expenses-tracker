@@ -49,7 +49,9 @@ const SignIn = () => {
     } else {
       console.log(result);
       logIn(result.data);
-      navigate("/budget");
+      setTimeout(() => {
+        navigate("/budget");
+      }, 1500);
     }
   };
   return (

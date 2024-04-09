@@ -12,7 +12,7 @@ const SignUp = () => {
   const [errorText, setErrorText] = useState(null);
   const navigate = useNavigate();
 
-  const fetchData = async () => {
+  const sendData = async () => {
     try {
       const response = await fetch("/signup", {
         method: "POST",
@@ -37,7 +37,7 @@ const SignUp = () => {
     // setStatus("fetching");
     const toastId = "test";
     event.preventDefault();
-    const result = await fetchData();
+    const result = await sendData();
     if (result.status !== 201) {
       // setStatus("idle");
       toast.error(result.message, {

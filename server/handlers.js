@@ -4,6 +4,8 @@ const updateCategory = require("./handlers/categories/updateCategoryHandler");
 const deleteCategory = require("./handlers/categories/deleteCategoryHandler");
 const signIn = require("./handlers/users/signInHandler");
 const signUp = require("./handlers/users/signUpHandler");
+const createBudget = require("./handlers/budgets/createBudgetHandler");
+const getBudget = require("./handlers/budgets/getBudgetHandler");
 
 module.exports = {
     getCategories,
@@ -11,5 +13,7 @@ module.exports = {
     updateCategory,
     deleteCategory,
     signIn,
-    signUp
+    signUp,
+    createBudget,
+    getBudget
 }

@@ -4,7 +4,9 @@ const {
     updateCategory,
     deleteCategory,
     signIn,
-    signUp
+    signUp,
+    createBudget,
+    getBudget
   } = require("./handlers");
   
   const router = require("express").Router();
@@ -15,5 +17,7 @@ const {
   router.delete("/deleteCategory/:id", deleteCategory);
   router.post("/signin", signIn);
   router.post("/signup", signUp);
+  router.post("/createBudget", createBudget);
+  router.get("/budget/:_id", getBudget);
   
   module.exports = router;
