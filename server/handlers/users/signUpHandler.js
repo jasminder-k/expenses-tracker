@@ -34,22 +34,20 @@ const signUpHandler = async (req, res) => {
       return client.close();
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    //await db.collection("users").insertOne({_id: uuidv4(), email:email, password: hashedPassword });
     const newUser = {
       _id: uuidv4(),
+      name: name,
       email: email,
       password: hashedPassword,
       expenses: [],
       budgets: [],
     };
     await db.collection("users").insertOne(newUser);
-    return res
-      .status(201)
-      .json({
-        status: 201,
-        message: "Account created successfully",
-        data: newUser,
-      });
+    return res.status(201).json({
+      status: 201,
+      message: "Account created successfully",
+      data: newUser,
+    });
   } catch (err) {
     res.status(500).json({ status: 500, message: err.message });
   }

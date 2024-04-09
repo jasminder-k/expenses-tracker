@@ -14,6 +14,6 @@ const {
   router.patch("/updateCategory", updateCategory);
   router.delete("/deleteCategory/:id", deleteCategory);
   router.post("/signin", signIn);
-  router.post("/signup", signUp)
+  router.post("/signup", signUp);
   
   module.exports = router;

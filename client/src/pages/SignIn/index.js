@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { Bounce, Slide, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { LoggedInUserContext } from "../../contexts/LoggedInUserContext";
 
 const SignIn = () => {
   const [emailValue, setEmailValue] = useState(null);
@@ -8,6 +11,8 @@ const SignIn = () => {
   const [status, setStatus] = useState("idle");
   const [errorText, setErrorText] = useState(null);
   const navigate = useNavigate();
+  const context = useContext(LoggedInUserContext);
+  const logIn = context.logIn;
 
   const fetchData = async () => {
     try {
@@ -26,58 +31,72 @@ const SignIn = () => {
     }
   };
   const handleSubmit = async (event) => {
+    const toastId = 'test';
     setStatus("fetching");
     event.preventDefault();
     const result = await fetchData();
     if (result.status !== 200) {
       setStatus("idle");
-      setErrorText(result.message || result.error);
+      toast.error(result.message || result.error, {
+        type: "error",
+        position: "top-right",
+        autoClose: false,
+        closeOnClick: true,
+        transition: Bounce,
+        toastId
+      });
+      //setErrorText(result.message || result.error);
     } else {
       console.log(result);
-      //if there is any budget that has not yet expired show it ??#no
-      // or show the past budgets if there are any??#yes
-      // in case if there is not any budget show the create budget form# show no budgets to show and a button add budget
+      logIn(result.data);
       navigate("/budget");
     }
   };
   return (
     <MainDiv>
-      <form
-        onSubmit={(event) => handleSubmit(event)}
-        style={{ border: "2px solid blue" }}
-      >
-        <Div>
-          <label>Email</label>
-          <Input
+      <form onSubmit={(event) => handleSubmit(event)}>
+        <div className="mb-1">
+          <h1>Sign In</h1>
+        </div>
+        <br />
+        <div className="mb-3">
+          <label className="form-label">Email</label>
+          <input
             type="email"
+            className="form-control"
             id="email"
-            placeholder="Enter your email"
+            aria-describedby="emailHelp"
             onChange={(event) => {
               setEmailValue(event.target.value);
               setErrorText(null);
             }}
           />
-        </Div>
-        <Div>
-          <label>Password</label>
-          <Input
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Password</label>
+          <input
             type="password"
+            className="form-control"
             id="password"
-            placeholder="Enter your password"
             onChange={(event) => {
               setPasswordValue(event.target.value);
               setErrorText(null);
             }}
           />
-        </Div>
+        </div>
         <button
           type="submit"
+          className="btn btn-primary"
           disabled={status !== "idle"}
-          style={{ marginLeft: "17vh", marginBottom: "5vh" }}
         >
           {status === "fetching" ? "Signing in" : "Sign in"}
         </button>
-        {errorText !== null && <p style={{border:"2px solid red"}}>{errorText}</p>}
+        {errorText !== null && (
+          <div className="mb-3" style={{ color: "red" }}>
+            {errorText}
+          </div>
+        )}
+        <ToastContainer/>
       </form>
     </MainDiv>
   );
@@ -90,11 +109,4 @@ const MainDiv = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 25vh;
-`;
-const Div = styled.div`
-  margin: 5vh;
-`;
-
-const Input = styled.input`
-  margin-left: 10px;
 `;
