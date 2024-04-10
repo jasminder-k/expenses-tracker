@@ -50,7 +50,7 @@ const SignIn = () => {
       console.log(result);
       logIn(result.data);
       setTimeout(() => {
-        navigate("/budget");
+        navigate("/budgets");
       }, 1500);
     }
   };

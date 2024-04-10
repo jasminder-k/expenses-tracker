@@ -6,6 +6,7 @@ import {
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Header from "./Header";
+import Budgets from "./pages/Budgets";
 import Budget from "./pages/Budget";
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/" element={<SignUp/>} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/signIn" element={<SignIn />} />
+        <Route path="/budgets" element={<Budgets/>}/>
         <Route path="/budget" element={<Budget/>}/>
       </Switch>
     </Router>

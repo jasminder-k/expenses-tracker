@@ -25,7 +25,7 @@ const createBudgetHandler = async (req, res) => {
         const updateUser = await db
           .collection("users")
           .updateOne({ _id: userId }, newValues);
-        if (updateUser.modifiedCount === 1)
+        /*if (updateUser.modifiedCount === 1)
           res.status(200).json({
             status: 200,
             message: "User updated",
@@ -35,7 +35,7 @@ const createBudgetHandler = async (req, res) => {
           res.status(400).json({
             status: 400,
             message: "User already updated",
-          });
+          });*/
       } else {
         res.status(404).json({ message: `User ${userId} not found` });
       }

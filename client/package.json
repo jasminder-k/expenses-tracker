@@ -7,8 +7,11 @@
   "author": "Jasminder Kaur <jassi5991@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "'": "file:awesome.me/kit-KIT_CODE@latest'",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "bootstrap": "^5.3.3",
     "components": "^0.1.0",
+    "font-awesome": "^4.7.0",
     "moment": "^2.30.1",
     "react": "^18.2.0",
     "react-datepicker": "^6.6.0",

@@ -11,8 +11,8 @@ const LoggedInUserContextProvider = ({ children }) => {
       _id: _id,
       email: email,
       name: name,
-      expenses: [expenses],
-      budgets: [budgets],
+      expenses: expenses,
+      budgets: budgets,
     };
     setLoggedInUser(user);
   };
