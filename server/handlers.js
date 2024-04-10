@@ -6,6 +6,7 @@ const signIn = require("./handlers/users/signInHandler");
 const signUp = require("./handlers/users/signUpHandler");
 const createBudget = require("./handlers/budgets/createBudgetHandler");
 const getBudget = require("./handlers/budgets/getBudgetHandler");
+const updateBudget = require("./handlers/budgets/updateBudgetHandler");
 
 module.exports = {
     getCategories,
@@ -15,5 +16,6 @@ module.exports = {
     signIn,
     signUp,
     createBudget,
-    getBudget
+    getBudget,
+    updateBudget
 }

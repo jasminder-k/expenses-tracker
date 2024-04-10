@@ -1,20 +1,46 @@
 import DatePicker from "react-datepicker";
-import React, { useState, useContext } from "react";
-import { LoggedInUserContext } from "../../contexts/LoggedInUserContext";
+import React, { useState, useContext, useEffect } from "react";
 import moment from "moment";
 import { Bounce, Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { LoggedInUserContext } from "../contexts/LoggedInUserContext";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const ExpensesForm = () => {
- /* const [totalValue, setTotalValue] = useState(null);
+const EditBudgetForm = () => {
+    const budgetId = useParams();
+    console.log(budgetId);
+    const [budget, setBudget] =  useState(null);
+const [totalValue, setTotalValue] = useState(null);
   const [expiryDate, setExpiryDate] = useState(null);
-  const [hideForm, setHideForm] = useState(false);
-
+  /* const [hideForm, setHideForm] = useState(false);*/
   const context = useContext(LoggedInUserContext);
   const loggedInUser = context.loggedInUser;
+
+  const fetchBudget = async () => {
+    console.log(`/budget/${budgetId._id.toString()}`);
+    const res = await fetch(`/budget/${budgetId._id}`);
+    const result = await res.json();
+    console.log(result);
+    return result;
+  };
+  useEffect(() => {
+    const getBudget = async () => {
+      try {
+        const result = await fetchBudget();
+        setBudget(result.data);
+        setExpiryDate(result.data.expiryDate);
+        setTotalValue(result.data.totalBudget);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getBudget();
+  }, [budgetId]);
+
+  console.log(budget);
   const navigate = useNavigate();
 
   const sendData = async () => {
@@ -22,8 +48,8 @@ const ExpensesForm = () => {
       //const formattedDate = moment(expiryDate, "YYYY-mm-dd");
       const expiryYear = moment(expiryDate).year();
       const expiryMonth = moment(expiryDate).month()+1;
-      const response = await fetch("/createBudget", {
-        method: "POST",
+      const response = await fetch("/updateBudget", {
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
@@ -31,7 +57,7 @@ const ExpensesForm = () => {
           totalBudget: totalValue,
           expiryDate: expiryDate,
           userId: loggedInUser._id,
-          _id: `budget_${expiryMonth}_${expiryYear}`,
+          _id: budget._id,
         }),
       });
       const responseData = await response.json();
@@ -47,8 +73,8 @@ const ExpensesForm = () => {
     event.preventDefault();
     console.log(expiryDate, totalValue);
     const toastId = "test";
-    const result = await sendData();
-    if (result.status !== 201) {
+   const result = await sendData();
+    if (result.status !== 200) {
       // setStatus("idle");
       toast.error(result.message, {
         type: "error",
@@ -60,7 +86,7 @@ const ExpensesForm = () => {
       });
       //setErrorText(result.message || result.error);
     } else {
-      toast.success("Budget added successfully", {
+      toast.success(result.message, {
         type: "success",
         position: "top-center",
         autoClose: 4000, //4 seconds
@@ -78,20 +104,17 @@ const ExpensesForm = () => {
   };
 
   return (
-    <main hidden={hideForm}>
-      <form onSubmit={(event) => handleSubmit(event)}>
+    <main>
+     {budget!= null && <form onSubmit={(event) => handleSubmit(event)}>
         <div className="mb-1">
-          <h1>Create Budget</h1>
+          <h1>Update Budget</h1>
         </div>
         <br />
         <div className="mb-3">
           <label className="form-label">Total amount</label>
           <input
-            type="number"
-            className="form-control"
-            id="total"
-            aria-describedby="totalValueHelp"
-            placeholder="Enter total amount of budget"
+          className="form-control"
+            value={totalValue}
             onChange={(event) => {
               setTotalValue(event.target.value);
               //setErrorText(null);
@@ -101,10 +124,9 @@ const ExpensesForm = () => {
         <div className="mb-3">
           <label className="form-label">Expiry Date</label>
           <input
-            type="date"
             className="form-control"
-            id="expiryDate"
-            aria-describedby="expiryDateHelp"
+            type="date"
+            value={expiryDate}
             onChange={(event) => {
               setExpiryDate(event.target.value);
               //setErrorText(null);
@@ -119,23 +141,11 @@ const ExpensesForm = () => {
           >
             Save
           </button>
-          <button
-            style={{ marginLeft: "2vw" }}
-            type="button"
-            className="btn btn-primary"
-            onClick={() => {
-              setHideForm(true);
-              navigate("/budgets");
-            }}
-          >
-            Go back to Budgets list
-          </button>
         </div>
         <ToastContainer />
-      </form>
+      </form>}
     </main>
-  );*/
+  );
 };
 
-
-export default ExpensesForm;
+export default EditBudgetForm;

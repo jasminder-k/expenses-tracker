@@ -2,40 +2,40 @@ import { useContext, useState } from "react";
 import { useEffect } from "react";
 import "font-awesome/css/font-awesome.min.css";
 import { useNavigate } from "react-router-dom";
-import EditBudgetForm from "../EditBudgetForm";
+import EditExpenseForm from "../EditBudgetForm";
 
-const Budget = ({ budgetId }) => {
-  const [budget, setBudget] = useState(null);
+const Expense = ({ expenseId }) => {
+  const [expense, setExpense] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
   const navigate = useNavigate();
   const fetchBudget = async () => {
-    console.log(`/budget/${budgetId.toString()}`);
-    const res = await fetch(`/budget/${budgetId}`);
+    console.log(`/expenses/${expenseId.toString()}`);
+    const res = await fetch(`/expenses/${expenseId}`);
     const result = await res.json();
     console.log(result);
     return result;
   };
   useEffect(() => {
-    const getBudget = async () => {
+    const getExpense = async () => {
       try {
         const result = await fetchBudget();
-        setBudget(result.data);
+        setExpense(result.data);
       } catch (err) {
         console.error(err);
       }
     };
 
-    getBudget();
-  }, [budgetId]);
+    getExpense();
+  }, [expenseId]);
 
-  console.log(budget);
+  console.log(expense);
 
   return (
     <>
       <tr>
-        {budget && Object.values(budget).map((row, index) => <td key={index} onClick={()=> navigate('/expenses')}>{row}</td>)}
+        {expense && Object.values(expense).map((row, index) => <td key={index}>{row}</td>)}
         <td>
-          <button onClick={()=> navigate(`/editBudget/${budget._id}`)}>
+          <button onClick={()=> navigate(`/editExpense/${expense._id}`)}>
             <i className="fa-solid fa-pen"></i>
           </button>
         </td>
@@ -49,4 +49,4 @@ const Budget = ({ budgetId }) => {
   );
 };
 
-export default Budget;
+export default Expense;
