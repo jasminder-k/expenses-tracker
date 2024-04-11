@@ -7,7 +7,11 @@ const {
     signUp,
     createBudget,
     getBudget,
-    updateBudget
+    updateBudget,
+    createExpense,
+    getExpense,
+    getExpensesOfABudget,
+    updateExpenseOfABudget
   } = require("./handlers");
   
   const router = require("express").Router();
@@ -21,5 +25,8 @@ const {
   router.post("/createBudget", createBudget);
   router.get("/budget/:_id", getBudget);
   router.patch("/updateBudget", updateBudget);
-  
+  router.post("/budgets/:budgetId/createExpense", createExpense);
+  router.get("/budgets/:budgetId/expenses/:_id", getExpense);
+  router.get("/budgets/:budgetId/expenses", getExpensesOfABudget);
+  router.patch("/budgets/:budgetId/updateExpense/:_id",updateExpenseOfABudget);
   module.exports = router;

@@ -7,15 +7,23 @@ const signUp = require("./handlers/users/signUpHandler");
 const createBudget = require("./handlers/budgets/createBudgetHandler");
 const getBudget = require("./handlers/budgets/getBudgetHandler");
 const updateBudget = require("./handlers/budgets/updateBudgetHandler");
+const createExpense = require("./handlers/expenses/createExpenseHandler");
+const getExpense = require("./handlers/expenses/getExpenseHandler");
+const getExpensesOfABudget = require("./handlers/expenses/getExpensesOfABudgetHandler");
+const updateExpenseOfABudget = require("./handlers/expenses/updateExpenseOfABudgetHandler");
 
 module.exports = {
-    getCategories,
-    createCategory,
-    updateCategory,
-    deleteCategory,
-    signIn,
-    signUp,
-    createBudget,
-    getBudget,
-    updateBudget
-}
+  getCategories,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+  signIn,
+  signUp,
+  createBudget,
+  getBudget,
+  updateBudget,
+  createExpense,
+  getExpense,
+  getExpensesOfABudget,
+  updateExpenseOfABudget,
+};

@@ -15,6 +15,7 @@ const createBudgetHandler = async (req, res) => {
     expiryDate: expiryDate,
   };
   try {
+    await client.connect();
     const foundLoggedInUser = await db
       .collection("users")
       .findOne({ _id: userId });

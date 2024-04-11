@@ -3,50 +3,60 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { LoggedInUserContext } from "../../contexts/LoggedInUserContext";
 import styled from "styled-components";
-import ExpensesForm from "../ExpensesForm"
+import ExpensesForm from "../ExpensesForm";
 import Expense from "../Expense";
-import 'font-awesome/css/font-awesome.min.css';
+import "font-awesome/css/font-awesome.min.css";
 
 const Expenses = () => {
   const { name } = useParams();
+  const budgetId = useParams();
+  console.log("budgetId", budgetId);
   const [expenses, setExpenses] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const context = useContext(LoggedInUserContext);
   const loggedInUser = context.loggedInUser;
 
-  const headings = ["ID","Item", "Price", "Date", "Category" ];
+  const headings = [
+    "ID",
+    "Item",
+    "Date",
+    "Price",
+    "Category",
+    "Deleted",
+    "Budget",
+  ];
   return (
     <>
       {
-        // show the past budgets if there are any??#yes
-        // in case if there is not any budget show the create budget form# show no budgets to show and a button add budget
+        // show the expenses if there are any??#yes
+        // in case if there is not any expense show the create expense form# show no expenses to show and a button add expense
         loggedInUser ? (
           <main>
-                  <button
-                  style={{ marginLeft: "75vw", marginTop: "4vh" }}
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => setShowForm(true)}
-                  hidden = {showForm}
-                >
-                  Add new expense
-                </button>
             {loggedInUser.expenses.length > 0 ? (
-              
-                <table className="table">
+              <table className="table">
                 <thead>
                   <tr>
                     {headings.map((head, index) => (
-                      <th key={index} scope="col">{head}</th>
+                      <th key={index} scope="col">
+                        {head}
+                      </th>
                     ))}
-                    <th scope ="col">Edit</th>
+                    <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
                   </tr>
                 </thead>
                 <tbody>
-                    {loggedInUser.expenses.map((expense)=>{return<Expense key={expense} expenseId={expense}/>})}
+                  {loggedInUser.expenses.map((expense) => {
+                    return (
+                      <Expense
+                        key={expense}
+                        budgetId={budgetId}
+                        expenseId={expense}
+                      />
+                    );
+                  })}
                 </tbody>
-      </table>
+              </table>
             ) : (
               <div>
                 <button
@@ -76,7 +86,7 @@ const Expenses = () => {
                 </table>
               </div>
             )}
-            {showForm && <ExpensesForm/>}
+            {showForm && <ExpensesForm budgetId={budgetId} />}
           </main>
         ) : (
           <Centered>Loading ...</Centered>

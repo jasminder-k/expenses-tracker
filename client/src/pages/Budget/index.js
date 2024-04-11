@@ -9,7 +9,7 @@ const Budget = ({ budgetId }) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const navigate = useNavigate();
   const fetchBudget = async () => {
-    console.log(`/budget/${budgetId.toString()}`);
+    console.log(`/budget/${budgetId}`);
     const res = await fetch(`/budget/${budgetId}`);
     const result = await res.json();
     console.log(result);
@@ -33,16 +33,26 @@ const Budget = ({ budgetId }) => {
   return (
     <>
       <tr>
-        {budget && Object.values(budget).map((row, index) => <td key={index} onClick={()=> navigate('/expenses')}>{row}</td>)}
+        {budget &&
+          Object.values(budget).map((row, index) => (
+            <td
+              key={index}
+              onClick={() => navigate(`/budgets/${budget._id}/expenses`)}
+            >
+              {row}
+            </td>
+          ))}
         <td>
-          <button onClick={()=> navigate(`/editBudget/${budget._id}`)}>
-            <i className="fa-solid fa-pen"></i>
-          </button>
+          <svg
+            onClick={() => navigate(`/editBudget/${budget._id}`)}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+          >
+            <path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
+          </svg>
         </td>
         <td>
-          <button>
-            <i className="fa-solid fa-trash-can"></i>
-          </button>
+          <i className="fa-solid fa-trash-can"></i>
         </td>
       </tr>
     </>

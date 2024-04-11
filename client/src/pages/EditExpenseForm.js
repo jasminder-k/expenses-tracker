@@ -1,22 +1,47 @@
 import DatePicker from "react-datepicker";
 import React, { useState, useContext, useEffect } from "react";
-import { LoggedInUserContext } from "../../contexts/LoggedInUserContext";
+import { LoggedInUserContext } from "../contexts/LoggedInUserContext";
 import { Bounce, Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const ExpensesForm = ({ budgetId }) => {
+const EditExpenseForm = () => {
+  const { budgetId, expenseId } = useParams();
   const [item, setItem] = useState(null);
   const [date, setDate] = useState(null);
   const [price, setPrice] = useState(null);
   const [category, setCategory] = useState(null);
   const [categories, setCategories] = useState(null);
+  const [expenses, setExpenses] = useState(null);
   //const headings = ["ID","Item", "Price", "Date", "Category" ];
   const context = useContext(LoggedInUserContext);
   const loggedInUser = context.loggedInUser;
   const navigate = useNavigate();
+
+  const fetchExpense = async () => {
+    //console.log(`/expense/${expenseId}`);
+    const res = await fetch(`/budgets/${budgetId}/expenses/${expenseId}`);
+    const result = await res.json();
+    return result;
+  };
+  useEffect(() => {
+    const getExpense = async () => {
+      try {
+        const result = await fetchExpense();
+        setExpenses(result.data);
+        setItem(result.data.itemName);
+        setDate(result.data.expenseDate);
+        setPrice(result.data.itemPrice);
+        setCategory(result.data.category);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getExpense();
+  }, [expenseId]);
 
   const fetchCategories = async () => {
     try {
@@ -36,19 +61,22 @@ const ExpensesForm = ({ budgetId }) => {
 
   const sendData = async () => {
     try {
-      const response = await fetch(`/budgets/${budgetId._id}/createExpense`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          item: item,
-          price: price,
-          date: date,
-          category: category,
-          userId: loggedInUser._id,
-        }),
-      });
+      const response = await fetch(
+        `/budgets/${budgetId}/updateExpense/${expenseId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            item: item,
+            price: price,
+            date: date,
+            category: category,
+            userId: loggedInUser._id,
+          }),
+        }
+      );
       const responseData = await response.json();
       return responseData;
     } catch (error) {
@@ -63,7 +91,7 @@ const ExpensesForm = ({ budgetId }) => {
     console.log(item, price, category, date);
     const toastId = "test";
     const result = await sendData();
-    if (result.status !== 201) {
+    if (result.status !== 200) {
       // setStatus("idle");
       toast.error(result.message, {
         type: "error",
@@ -87,7 +115,7 @@ const ExpensesForm = ({ budgetId }) => {
         transition: Slide,
       });
       setTimeout(() => {
-        navigate(`/budgets/${budgetId._id}/expenses`);
+        navigate(`/budgets/${budgetId}/expenses`);
       }, 4500);
     }
   };
@@ -96,7 +124,7 @@ const ExpensesForm = ({ budgetId }) => {
     <main>
       <form onSubmit={(event) => handleSubmit(event)}>
         <div className="mb-1">
-          <h1>Create Expense</h1>
+          <h1>Edit Expense</h1>
         </div>
         <br />
         <div className="mb-3">
@@ -106,7 +134,7 @@ const ExpensesForm = ({ budgetId }) => {
             className="form-control"
             id="item"
             aria-describedby="itemNameHelp"
-            placeholder="Enter name of item"
+            value={item}
             onChange={(event) => {
               setItem(event.target.value);
               //setErrorText(null);
@@ -120,7 +148,7 @@ const ExpensesForm = ({ budgetId }) => {
             className="form-control"
             id="price"
             aria-describedby="itemPriceHelp"
-            placeholder="Enter price of item"
+            value={price}
             onChange={(event) => {
               setPrice(event.target.value);
               //setErrorText(null);
@@ -132,6 +160,7 @@ const ExpensesForm = ({ budgetId }) => {
           <select
             className="form-select"
             aria-label="Select Category"
+            value={category}
             onChange={(event) => {
               setCategory(event.target.value);
             }}
@@ -154,6 +183,7 @@ const ExpensesForm = ({ budgetId }) => {
             className="form-control"
             id="date"
             aria-describedby="dateHelp"
+            value={date}
             onChange={(event) => {
               setDate(event.target.value);
               //setErrorText(null);
@@ -185,4 +215,4 @@ const ExpensesForm = ({ budgetId }) => {
   );
 };
 
-export default ExpensesForm;
+export default EditExpenseForm;
