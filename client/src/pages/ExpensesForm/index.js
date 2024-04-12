@@ -14,6 +14,7 @@ const ExpensesForm = ({ budgetId }) => {
   const [category, setCategory] = useState(null);
   const [categories, setCategories] = useState(null);
   //const headings = ["ID","Item", "Price", "Date", "Category" ];
+  const [hideForm, setHideForm] = useState(false);
   const context = useContext(LoggedInUserContext);
   const loggedInUser = context.loggedInUser;
   const navigate = useNavigate();
@@ -87,13 +88,14 @@ const ExpensesForm = ({ budgetId }) => {
         transition: Slide,
       });
       setTimeout(() => {
+        setHideForm(true);
         navigate(`/budgets/${budgetId._id}/expenses`);
       }, 4500);
     }
   };
 
   return (
-    <main>
+    <main hidden={hideForm}>
       <form onSubmit={(event) => handleSubmit(event)}>
         <div className="mb-1">
           <h1>Create Expense</h1>
@@ -173,6 +175,7 @@ const ExpensesForm = ({ budgetId }) => {
             type="button"
             className="btn btn-primary"
             onClick={() => {
+              setHideForm(true);
               navigate(`/budgets/${budgetId._id}/expenses`);
             }}
           >

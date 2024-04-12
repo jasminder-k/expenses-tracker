@@ -15,6 +15,29 @@ const Expenses = () => {
   const [showForm, setShowForm] = useState(false);
   const context = useContext(LoggedInUserContext);
   const loggedInUser = context.loggedInUser;
+  const fetchExpense = async () => {
+    //console.log(`/expense/${expenseId}`);
+    console.log(budgetId);
+    console.log(`/budgets/${budgetId._id}/expenses`);
+    const res = await fetch(`/budgets/${budgetId._id}/expenses`);
+    const result = await res.json();
+    console.log(result);
+    return result;
+  };
+  useEffect(() => {
+    const getExpense = async () => {
+      try {
+        const result = await fetchExpense();
+        setExpenses(result.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getExpense();
+  }, [budgetId]);
+
+  console.log(expenses);
 
   const headings = [
     "ID",
@@ -32,7 +55,16 @@ const Expenses = () => {
         // in case if there is not any expense show the create expense form# show no expenses to show and a button add expense
         loggedInUser ? (
           <main>
-            {loggedInUser.expenses.length > 0 ? (
+             <button
+                  style={{ marginLeft: "75vw", marginTop: "4vh" }}
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => setShowForm(true)}
+                >
+                  Add a new expense
+                </button>
+
+            {expenses && expenses.length> 0 ? (
               <table className="table">
                 <thead>
                   <tr>
@@ -46,7 +78,7 @@ const Expenses = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {loggedInUser.expenses.map((expense) => {
+                  {expenses.map((expense) => {
                     return (
                       <Expense
                         key={expense}
@@ -59,15 +91,6 @@ const Expenses = () => {
               </table>
             ) : (
               <div>
-                <button
-                  style={{ marginLeft: "75vw", marginTop: "4vh" }}
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => setShowForm(true)}
-                >
-                  Create expense
-                </button>
-
                 <table
                   hidden={showForm}
                   style={{ marginTop: "10vh" }}

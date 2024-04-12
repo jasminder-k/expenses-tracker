@@ -30,7 +30,7 @@ const Header = () => {
             </div>
           ) : (
             <div>
-              <NavItem to={"/budget"}>Welcome {loggedInUser.name}</NavItem>
+              <NavItem to={"/budgets"}>Welcome {loggedInUser.name}</NavItem>
               <NavItem to="/" onClick={logOut}>
                 Log out
               </NavItem>

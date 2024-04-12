@@ -72,6 +72,7 @@ const BudgetForm = () => {
         transition: Slide,
       });
       setTimeout(() => {
+        setHideForm(true);
         navigate("/budgets");
       }, 4500);
     }

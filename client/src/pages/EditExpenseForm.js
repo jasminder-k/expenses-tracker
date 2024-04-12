@@ -203,7 +203,7 @@ const EditExpenseForm = () => {
             type="button"
             className="btn btn-primary"
             onClick={() => {
-              navigate(`/budgets/${budgetId._id}/expenses`);
+              navigate(`/budgets/${budgetId}/expenses`);
             }}
           >
             Go back to Expenses list
