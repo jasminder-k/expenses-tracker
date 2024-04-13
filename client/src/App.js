@@ -12,13 +12,14 @@ import EditBudgetForm from "./pages/EditBudgetForm";
 import Expenses from "./pages/Expenses";
 import Expense from "./pages/Expense";
 import EditExpenseForm from "./pages/EditExpenseForm";
+import Homepage from "./pages/Homepage";
 
 const App = () => {
   return (
     <Router>
       <Header/>
       <Switch>
-        <Route path="/" element={<SignUp/>} />
+        <Route path="/" element={<Homepage/>} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/budgets" element={<Budgets/>}/>

@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { LoggedInUserContext } from "../../contexts/LoggedInUserContext";
 import styled from "styled-components";
 import ExpensesForm from "../ExpensesForm";
 import Expense from "../Expense";
 import "font-awesome/css/font-awesome.min.css";
+import Modal from "../Modal";
 
 const Expenses = () => {
   const { name } = useParams();
@@ -13,8 +14,11 @@ const Expenses = () => {
   console.log("budgetId", budgetId);
   const [expenses, setExpenses] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const context = useContext(LoggedInUserContext);
   const loggedInUser = context.loggedInUser;
+  const navigate = useNavigate();
+
   const fetchExpense = async () => {
     //console.log(`/expense/${expenseId}`);
     console.log(budgetId);
@@ -55,6 +59,7 @@ const Expenses = () => {
         // in case if there is not any expense show the create expense form# show no expenses to show and a button add expense
         loggedInUser ? (
           <main>
+            <h1 style={{textAlign: "center"}}>Expenses </h1>
              <button
                   style={{ marginLeft: "75vw", marginTop: "4vh" }}
                   type="button"
@@ -63,8 +68,9 @@ const Expenses = () => {
                 >
                   Add a new expense
                 </button>
-
+            {showModal && <Modal expense={showModal} userId={loggedInUser._id}/>}
             {expenses && expenses.length> 0 ? (
+              <>
               <table className="table">
                 <thead>
                   <tr>
@@ -84,11 +90,23 @@ const Expenses = () => {
                         key={expense}
                         budgetId={budgetId}
                         expenseId={expense}
-                      />
+                        showModal={showModal}
+                        setShowModal={setShowModal}/>
                     );
                   })}
                 </tbody>
               </table>
+              <button
+            style={{ marginLeft: "25vw" }}
+            type="button"
+            className="btn btn-primary"
+            onClick={() => {
+              navigate("/budgets");
+            }}
+          >
+            Go back to Budgets list
+          </button>
+              </>
             ) : (
               <div>
                 <table
@@ -107,6 +125,16 @@ const Expenses = () => {
                     </tr>
                   </tbody>
                 </table>
+                <button
+            style={{ marginLeft: "2vw" }}
+            type="button"
+            className="btn btn-primary"
+            onClick={() => {
+              navigate("/budgets");
+            }}
+          >
+            Go back to Budgets list
+          </button>
               </div>
             )}
             {showForm && <ExpensesForm budgetId={budgetId} />}

@@ -9,11 +9,11 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const EditExpenseForm = () => {
   const { budgetId, expenseId } = useParams();
-  const [item, setItem] = useState(null);
-  const [date, setDate] = useState(null);
-  const [price, setPrice] = useState(null);
-  const [category, setCategory] = useState(null);
-  const [categories, setCategories] = useState(null);
+  const [item, setItem] = useState("");
+  const [date, setDate] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState("");
   const [expenses, setExpenses] = useState(null);
   //const headings = ["ID","Item", "Price", "Date", "Category" ];
   const context = useContext(LoggedInUserContext);
@@ -165,7 +165,7 @@ const EditExpenseForm = () => {
               setCategory(event.target.value);
             }}
           >
-            <option selected>Select a category</option>
+            <option value={""}>Select a category</option>
             {categories &&
               categories.map((cat, index) => {
                 return (

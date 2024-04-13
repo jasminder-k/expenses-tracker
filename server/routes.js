@@ -11,7 +11,8 @@ const {
     createExpense,
     getExpense,
     getExpensesOfABudget,
-    updateExpenseOfABudget
+    updateExpenseOfABudget,
+    deleteExpense
   } = require("./handlers");
   
   const router = require("express").Router();
@@ -29,4 +30,5 @@ const {
   router.get("/budgets/:budgetId/expenses/:_id", getExpense);
   router.get("/budgets/:budgetId/expenses", getExpensesOfABudget);
   router.patch("/budgets/:budgetId/updateExpense/:_id",updateExpenseOfABudget);
+  router.delete("/expenses/:id/delete", deleteExpense);
   module.exports = router;

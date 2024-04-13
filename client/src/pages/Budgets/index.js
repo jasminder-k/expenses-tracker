@@ -22,6 +22,7 @@ const Budgets = () => {
         // in case if there is not any budget show the create budget form# show no budgets to show and a button add budget
         loggedInUser ? (
           <main>
+            <h1 style={{textAlign: "center"}}>Budgets</h1>
                   <button
                   style={{ marginLeft: "75vw", marginTop: "4vh" }}
                   type="button"
