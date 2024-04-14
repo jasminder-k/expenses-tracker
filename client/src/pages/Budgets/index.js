@@ -6,11 +6,13 @@ import styled from "styled-components";
 import BudgetForm from "../../BudgetForm";
 import Budget from "../Budget";
 import 'font-awesome/css/font-awesome.min.css';
+import GenerateExcel from "../GenerateExcel";
 
 const Budgets = () => {
   const { name } = useParams();
   const [budgets, setBudgets] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [generateExcel, setGenerateExcel] = useState(null);
   const context = useContext(LoggedInUserContext);
   const loggedInUser = context.loggedInUser;
 
@@ -24,7 +26,7 @@ const Budgets = () => {
           <main>
             <h1 style={{textAlign: "center"}}>Budgets</h1>
                   <button
-                  style={{ marginLeft: "75vw", marginTop: "4vh" }}
+                  style={{ marginLeft: "83vw", marginTop: "4vh", marginBottom:"4vh" }}
                   type="button"
                   className="btn btn-primary"
                   onClick={() => setShowForm(true)}
@@ -32,9 +34,10 @@ const Budgets = () => {
                 >
                   Add new budget
                 </button>
+                {generateExcel && <GenerateExcel budget={generateExcel}/>}
             {loggedInUser.budgets.length > 0 ? (
-              
-                <table className="table">
+              <>
+                <table className="table" style={{maxWidth:"80vw", marginRight: "20vw", marginLeft: "10vw"}}>
                 <thead>
                   <tr>
                     {headings.map((head, index) => (
@@ -42,12 +45,14 @@ const Budgets = () => {
                     ))}
                     <th scope ="col">Edit</th>
                     <th scope="col">Delete</th>
+                    <th scope="col">Download</th>
                   </tr>
                 </thead>
                 <tbody>
-                    {loggedInUser.budgets.map((budget)=>{return<Budget key={budget} budgetId={budget}/>})}
+                    {loggedInUser.budgets.map((budget)=>{return<Budget key={budget} budgetId={budget} setGenerateExcel={setGenerateExcel}/>})}
                 </tbody>
       </table>
+      </>
             ) : (
               <div>
                 <button
@@ -96,4 +101,5 @@ const Centered = styled.main`
   min-height: var(--min-details-content-height);
   background-color: white;
 `;
+
 
