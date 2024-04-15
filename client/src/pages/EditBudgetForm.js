@@ -10,7 +10,6 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const EditBudgetForm = () => {
     const budgetId = useParams();
-    console.log(budgetId);
     const [budget, setBudget] =  useState(null);
 const [totalValue, setTotalValue] = useState(null);
   const [expiryDate, setExpiryDate] = useState(null);
@@ -19,10 +18,8 @@ const [totalValue, setTotalValue] = useState(null);
   const loggedInUser = context.loggedInUser;
 
   const fetchBudget = async () => {
-    console.log(`/budget/${budgetId._id.toString()}`);
     const res = await fetch(`/budget/${budgetId._id}`);
     const result = await res.json();
-    console.log(result);
     return result;
   };
   useEffect(() => {
@@ -40,7 +37,6 @@ const [totalValue, setTotalValue] = useState(null);
     getBudget();
   }, [budgetId]);
 
-  console.log(budget);
   const navigate = useNavigate();
 
   const sendData = async () => {
@@ -71,7 +67,6 @@ const [totalValue, setTotalValue] = useState(null);
   const handleSubmit = async (event) => {
     // setStatus("fetching");
     event.preventDefault();
-    console.log(expiryDate, totalValue);
     const toastId = "test";
    const result = await sendData();
     if (result.status !== 200) {

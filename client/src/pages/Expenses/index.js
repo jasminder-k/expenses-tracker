@@ -7,25 +7,21 @@ import ExpensesForm from "../ExpensesForm";
 import Expense from "../Expense";
 import "font-awesome/css/font-awesome.min.css";
 import Modal from "../Modal";
+import Homepage from "../Homepage";
 
 const Expenses = () => {
   const { name } = useParams();
   const budgetId = useParams();
-  console.log("budgetId", budgetId);
   const [expenses, setExpenses] = useState(null);
-  const [showForm, setShowForm] = useState(false);
+  const [showExpensesForm, setShowExpensesForm] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const context = useContext(LoggedInUserContext);
   const loggedInUser = context.loggedInUser;
   const navigate = useNavigate();
 
   const fetchExpense = async () => {
-    //console.log(`/expense/${expenseId}`);
-    console.log(budgetId);
-    console.log(`/budgets/${budgetId._id}/expenses`);
     const res = await fetch(`/budgets/${budgetId._id}/expenses`);
     const result = await res.json();
-    console.log(result);
     return result;
   };
   useEffect(() => {
@@ -41,14 +37,7 @@ const Expenses = () => {
     getExpense();
   }, [budgetId]);
 
-  console.log(expenses);
-
-  const headings = [
-    "Item",
-    "Date",
-    "Price",
-    "Category"
-  ];
+  const headings = ["Item", "Date", "Price", "Category"];
   return (
     <>
       {
@@ -56,60 +45,76 @@ const Expenses = () => {
         // in case if there is not any expense show the create expense form# show no expenses to show and a button add expense
         loggedInUser ? (
           <main>
-            <h1 style={{textAlign: "center"}}>Expenses </h1>
-             <button
-                  style={{ marginLeft: "75vw", marginTop: "4vh", marginBottom:"4vh" }}
+            <h1 style={{ textAlign: "center" }}>Expenses </h1>
+            <button
+              style={{
+                marginLeft: "75vw",
+                marginTop: "4vh",
+                marginBottom: "4vh",
+              }}
+              type="button"
+              className="btn btn-dark"
+              onClick={() => setShowExpensesForm(!showExpensesForm)}
+            >
+              Add a new expense
+            </button>
+            <Modal expense={showModal} userId={loggedInUser._id} />
+            {expenses!=null && expenses.length > 0 ? (
+              <>
+                <table
+                  className="table table-secondary"
+                  style={{
+                    maxWidth: "80vw",
+                    marginRight: "20vw",
+                    marginLeft: "10vw",
+                  }}
+                >
+                  <thead>
+                    <tr className="table-dark">
+                      {headings.map((head, index) => (
+                        <th key={index} scope="col">
+                          {head}
+                        </th>
+                      ))}
+                      <th scope="col">Edit</th>
+                      <th scope="col">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {expenses.map((expense, index) => {
+                      return (
+                        <Expense
+                          key={expense._id}
+                          budgetId={budgetId}
+                          expenseId={expense}
+                          showModal={showModal}
+                          setShowModal={setShowModal}
+                        />
+                      );
+                    })}
+                  </tbody>
+                </table>
+                <button
+                  style={{ marginLeft: "10vw" }}
                   type="button"
                   className="btn btn-dark"
-                  onClick={() => setShowForm(true)}
+                  onClick={() => {
+                    navigate("/budgets");
+                  }}
                 >
-                  Add a new expense
+                  Go back to Budgets list
                 </button>
-            <Modal expense={showModal} userId={loggedInUser._id}/>
-            {expenses && expenses.length> 0 ? (
-              <>
-              <table className="table table-secondary" style={{maxWidth:"80vw", marginRight: "20vw", marginLeft: "10vw"}}>
-                <thead>
-                  <tr className="table-dark">
-                    {headings.map((head, index) => (
-                      <th key={index} scope="col">
-                        {head}
-                      </th>
-                    ))}
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {expenses.map((expense, index) => {
-                    return (
-                      <Expense
-                        key={expense._id}
-                        budgetId={budgetId}
-                        expenseId={expense}
-                        showModal={showModal}
-                        setShowModal={setShowModal}/>
-                    );
-                  })}
-                </tbody>
-              </table>
-              <button
-            style={{ marginLeft: "10vw" }}
-            type="button"
-            className="btn btn-dark"
-            onClick={() => {
-              navigate("/budgets");
-            }}
-          >
-            Go back to Budgets list
-          </button>
-          {showForm && <ExpensesForm budgetId={budgetId} />}
               </>
             ) : (
               <div>
                 <table
-                  hidden={showForm}
-                  style={{maxWidth:"80vw", marginRight: "20vw", marginLeft: "10vw",  marginTop: "10vh"}}
+                  hidden={showExpensesForm}
+                  style={{
+                    maxWidth: "80vw",
+                    marginRight: "20vw",
+                    marginLeft: "10vw",
+                    marginTop: "10vh",
+                  }}
                   className="table"
                 >
                   <thead>
@@ -124,21 +129,22 @@ const Expenses = () => {
                   </tbody>
                 </table>
                 <button
-            style={{ marginTop: "8vh", marginLeft: "24vh" }}
-            type="button"
-            className="btn btn-dark"
-            onClick={() => {
-              navigate("/budgets");
-            }}
-          >
-            Go back to Budgets list
-          </button>
-          {showForm && <ExpensesForm budgetId={budgetId} />}
+                  style={{ marginTop: "8vh", marginLeft: "24vh" }}
+                  type="button"
+                  className="btn btn-dark"
+                  hidden={showExpensesForm}
+                  onClick={() => {
+                    navigate("/budgets");
+                  }}
+                >
+                  Go back to Budgets list
+                </button>
               </div>
             )}
+              {showExpensesForm && <ExpensesForm budgetId={budgetId} />}
           </main>
         ) : (
-          <Centered>Loading ...</Centered>
+          <Homepage />
         )
       }
     </>

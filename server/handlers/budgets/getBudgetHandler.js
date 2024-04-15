@@ -6,12 +6,9 @@ const db = client.db("expensesTracker");
 
 const getBudgetHandler = async(req, res) => {
     const {_id} = req.params;
-    console.log(req.params);
-    console.log(_id)
     try {
         await client.connect();
         const budget = await db.collection("budgets").findOne({_id:_id});
-        console.log(budget);
         if (budget!= null) {
           res.status(200).json({ status: 200, data: budget });
         } else {

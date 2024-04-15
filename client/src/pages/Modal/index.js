@@ -4,15 +4,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Modal = ({expense, userId})=> {
-  console.log("expenseTodelete", expense)
-    console.log("modal rendered");
     const [hideModal, setHideModal] = useState("");
     const navigate = useNavigate();
     const budgetId = expense.budget;
 
     const deleteExpense = async (id) => {
-      console.log(id);
-      console.log(userId);
       try {
         const response = await fetch(
           `/expenses/${id}/delete`,

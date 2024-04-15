@@ -21,7 +21,6 @@ const EditExpenseForm = () => {
   const navigate = useNavigate();
 
   const fetchExpense = async () => {
-    //console.log(`/expense/${expenseId}`);
     const res = await fetch(`/budgets/${budgetId}/expenses/${expenseId}`);
     const result = await res.json();
     return result;
@@ -88,7 +87,6 @@ const EditExpenseForm = () => {
   const handleSubmit = async (event) => {
     // setStatus("fetching");
     event.preventDefault();
-    console.log(item, price, category, date);
     const toastId = "test";
     const result = await sendData();
     if (result.status !== 200) {
@@ -190,9 +188,8 @@ const EditExpenseForm = () => {
             }}
           />
         </div>
-        <div style={{ marginTop: "8vh", marginLeft: "24vh" }}>
+        <div style={{ marginTop: "8vh"}}>
           <button
-            style={{ marginLeft: "5vw" }}
             type="submit"
             className="btn btn-dark"
           >

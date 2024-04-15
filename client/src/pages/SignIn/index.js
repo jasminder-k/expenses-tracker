@@ -47,7 +47,6 @@ const SignIn = () => {
       });
       //setErrorText(result.message || result.error);
     } else {
-      console.log(result);
       logIn(result.data);
       setTimeout(() => {
         navigate("/loggedInHomepage");

@@ -8,7 +8,6 @@ const client = new MongoClient(MONGO_URI);
 const db = client.db("expensesTracker");
 
 const deleteExpenseHandler = async(req, res) => {
-    console.log("entered")
     const _id = req.params.id;
     const {userId } = req.body;
     try {

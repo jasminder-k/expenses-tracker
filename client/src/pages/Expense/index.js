@@ -6,21 +6,15 @@ import EditExpenseForm from "../EditBudgetForm";
 import Modal from "../Modal";
 
 const Expense = ({ expenseId, budgetId, showModal, setShowModal }) => {
-  console.log("expenseId", expenseId);
   const [expense, setExpense] = useState(null);
   const [categoryName, setCategoryName] = useState(null);
 
   const navigate = useNavigate();
   const fetchExpense = async () => {
-    //console.log(`/expense/${expenseId}`);
-    console.log(budgetId);
-    console.log(`/budgets/${budgetId._id}/expenses/${expenseId._id}`);
-    //"/budgets/:budgetId/expenses/:_id"
     const res = await fetch(
       `/budgets/${budgetId._id}/expenses/${expenseId._id}`
     );
     const result = await res.json();
-    console.log(result);
     return result;
   };
   useEffect(() => {
@@ -36,22 +30,15 @@ const Expense = ({ expenseId, budgetId, showModal, setShowModal }) => {
     getExpense();
   }, [expenseId]);
 
-  console.log("expense", expenseId);
   const fetchCategory = async (id) => {
-    //console.log(`/expense/${expenseId}`);
-    console.log(id);
-    console.log(`/categories/${id}`);
-    //"/budgets/:budgetId/expenses/:_id"
     const res = await fetch(`/categories/${id}`);
     const result = await res.json();
-    console.log(result);
     return result;
   };
   useEffect(() => {
     const getCategoryName = async() => {
       try {
         const result = await fetchCategory(expenseId.category);
-        console.log("what is it", result)
         setCategoryName(result.data);
       } catch (err) {
         console.error(err);
@@ -60,7 +47,6 @@ const Expense = ({ expenseId, budgetId, showModal, setShowModal }) => {
     getCategoryName();
   }, [expenseId.category]);
 
-  console.log(categoryName);
   return (
     <>
     {expense != null && (

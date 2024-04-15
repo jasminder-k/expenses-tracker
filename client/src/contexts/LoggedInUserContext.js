@@ -18,7 +18,6 @@ const LoggedInUserContextProvider = ({ children }) => {
   };
   const addBudget = (newbudget) => {
     setLoggedInUser({...loggedInUser, budgets: [...loggedInUser.budgets, newbudget]},)
-    console.log(loggedInUser)
   }
   const logOut = () => {
     setLoggedInUser(null);

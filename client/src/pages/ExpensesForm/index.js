@@ -61,7 +61,7 @@ const ExpensesForm = ({ budgetId }) => {
   const handleSubmit = async (event) => {
     // setStatus("fetching");
     event.preventDefault();
-    console.log(item, price, category, date);
+    setHideForm(true);
     const toastId = "testExpense";
     const result = await sendData();
     if (result.status !== 201) {
@@ -84,7 +84,6 @@ const ExpensesForm = ({ budgetId }) => {
         transition: Slide,
       });
       setTimeout(() => {
-        setHideForm(!hideForm);
         navigate(`/budgets/${budgetId._id}/expenses`);
       }, 1500);
     }
@@ -158,9 +157,8 @@ const ExpensesForm = ({ budgetId }) => {
             }}
           />
         </div>
-        <div style={{ marginTop: "8vh", marginLeft: "24vh" }}>
+        <div style={{ marginTop: "8vh" }}>
           <button
-            style={{ marginLeft: "5vw" }}
             type="submit"
             className="btn btn-dark"
           >
@@ -172,6 +170,7 @@ const ExpensesForm = ({ budgetId }) => {
             className="btn btn-dark"
             onClick={() => {
               setHideForm(!hideForm);
+              console.log(budgetId._id)
             }}
           >
             Cancel

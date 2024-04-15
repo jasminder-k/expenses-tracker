@@ -10,11 +10,8 @@ const Budget = ({ budgetId, setGenerateExcel }) => {
   const [testBudgetId, setTestBudgetId] = useState(null)
   const navigate = useNavigate();
   const fetchBudget = async () => {
-    console.log(`/budget/${budgetId}`);
-    console.log(budgetId)
     const res = await fetch(`/budget/${budgetId}`);
     const result = await res.json();
-    console.log(result);
     return result;
   };
   useEffect(() => {
@@ -30,7 +27,6 @@ const Budget = ({ budgetId, setGenerateExcel }) => {
     getBudget();
   }, [budgetId]);
 
-  console.log(budget);
 
   return (
     budget != null && 

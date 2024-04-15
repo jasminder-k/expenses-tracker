@@ -7,8 +7,6 @@ const db = client.db("expensesTracker");
 const getExpenseHandler = async (req, res) => {
   const budgetId = req.params.budgetId;
   const _id = req.params._id;
-  console.log(budgetId);
-  console.log(_id);
   try {
     await client.connect();
     const expense = await db

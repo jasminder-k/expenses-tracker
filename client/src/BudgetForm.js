@@ -46,7 +46,6 @@ const BudgetForm = () => {
   const handleSubmit = async (event) => {
     // setStatus("fetching");
     event.preventDefault();
-    console.log(expiryDate, totalValue);
     const toastId = "test";
     const result = await sendData();
     if (result.status !== 201) {
@@ -61,8 +60,6 @@ const BudgetForm = () => {
       });
       //setErrorText(result.message || result.error);
     } else {
-      // set the addBudget over here
-      console.log(result);
       addBudget(result.data._id);
       toast.success("Budget added successfully", {
         type: "success",

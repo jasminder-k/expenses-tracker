@@ -2,14 +2,10 @@ import { useState, useEffect } from "react";
 
 const GenerateExcel = ({ budget }) => {
   const [expenses, setExpenses] = useState(null);
-  console.log(budget);
   const XLSX = require("xlsx");
   const fetchExpense = async () => {
-    //console.log(`/expense/${expenseId}`);
-    console.log(`/budgets/${budget._id}/expenses`);
     const res = await fetch(`/budgets/${budget._id}/expenses`);
     const result = await res.json();
-    console.log(result);
     return result;
   };
   useEffect(() => {
@@ -25,11 +21,10 @@ const GenerateExcel = ({ budget }) => {
     getExpense();
   }, [budget._id]);
 
-  console.log(expenses);
   let expensesKeys = "";
   let expensesValues = [];
   let dataBudget = [];
-  console.log(expenses);
+
   if (expenses != null && expenses.length > 0) {
     for (let index = 0; index < expenses.length; index++) {
       const element = expenses[index];

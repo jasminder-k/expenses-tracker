@@ -6,7 +6,6 @@ import { useContext, useState } from "react";
 const Header = () => {
   const context = useContext(LoggedInUserContext);
   const loggedInUser = context.loggedInUser;
-  console.log(loggedInUser);
   const logOut = context.logOut;
 
   return (
