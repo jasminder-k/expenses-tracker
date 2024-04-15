@@ -89,7 +89,7 @@ const [totalValue, setTotalValue] = useState(null);
       toast.success(result.message, {
         type: "success",
         position: "top-center",
-        autoClose: 4000, //4 seconds
+        autoClose: 1000, //4 seconds
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -99,7 +99,7 @@ const [totalValue, setTotalValue] = useState(null);
       });
       setTimeout(() => {
         navigate("/budgets");
-      }, 4500);
+      }, 1500);
     }
   };
 
@@ -135,7 +135,6 @@ const [totalValue, setTotalValue] = useState(null);
         </div>
         <div style={{ marginTop: "8vh" }}>
           <button
-            style={{ marginLeft: "5vw" }}
             type="submit"
             className="btn btn-dark"
           >

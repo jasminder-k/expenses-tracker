@@ -7,6 +7,7 @@ import BudgetForm from "../../BudgetForm";
 import Budget from "../Budget";
 import 'font-awesome/css/font-awesome.min.css';
 import GenerateExcel from "../GenerateExcel";
+import Homepage from "../Homepage";
 
 const Budgets = () => {
   const { name } = useParams();
@@ -16,7 +17,7 @@ const Budgets = () => {
   const context = useContext(LoggedInUserContext);
   const loggedInUser = context.loggedInUser;
 
-  const headings = ["ID","Total Amount", "Expiry Date"];
+  const headings = ["Expiry Date","Total Amount"];
   return (
     <>
       {
@@ -25,12 +26,11 @@ const Budgets = () => {
         loggedInUser ? (
           <main>
             <h1 style={{textAlign: "center"}}>Budgets</h1>
-                  <button
-                  style={{ marginLeft: "83vw", marginTop: "4vh", marginBottom:"4vh" }}
+            <button
+                  style={{ marginLeft: "78vw", marginTop: "4vh", marginBottom:"4vh" }}
                   type="button"
                   className="btn btn-dark"
-                  onClick={() => setShowForm(true)}
-                  hidden = {showForm}
+                  onClick={() => setShowForm(!showForm)}
                 >
                   Add new budget
                 </button>
@@ -59,7 +59,7 @@ const Budgets = () => {
                   style={{ marginLeft: "75vw", marginTop: "4vh" }}
                   type="button"
                   className="btn btn-dark"
-                  onClick={() => setShowForm(true)}
+                  onClick={() => setShowForm(!showForm)}
                 >
                   Create budget
                 </button>
@@ -85,7 +85,7 @@ const Budgets = () => {
             {showForm && <BudgetForm />}
           </main>
         ) : (
-          <Centered>Loading ...</Centered>
+          <Homepage/>
         )
       }
     </>

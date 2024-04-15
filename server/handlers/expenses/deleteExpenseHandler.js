@@ -22,8 +22,8 @@ const deleteExpenseHandler = async(req, res) => {
         .deleteOne({ _id: _id });
       if (expenseToUpdate.deletedCount === 1) {
         const userUpdate = await db.collection("users").updateOne({_id: userId}, {$pull:{expenses: _id}})
-        return res.status(204).json({
-          status: 204,
+        return res.status(200).json({
+          status: 200,
           message: "Expense deleted successfully",
           data: _id,
         });

@@ -1,11 +1,14 @@
 import { Bounce, Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Modal = ({expense, userId})=> {
   console.log("expenseTodelete", expense)
     console.log("modal rendered");
     const [hideModal, setHideModal] = useState("");
+    const navigate = useNavigate();
+    const budgetId = expense.budget;
 
     const deleteExpense = async (id) => {
       console.log(id);
@@ -34,7 +37,7 @@ const Modal = ({expense, userId})=> {
       //event.preventDefault();
       const result = await deleteExpense(id.toString());
       const toastId = "delete";
-      if (result.status !== 204) {
+      if (result.status !== 200) {
         // setStatus("idle");
         toast.error(result.message, {
           type: "error",
@@ -49,17 +52,14 @@ const Modal = ({expense, userId})=> {
         toast.success(result.message, {
           type: "success",
           position: "top-center",
-          autoClose: 4000, //4 seconds
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
+          autoClose: 1000, //1 seconds
           toastId,
           transition: Slide,
         });
         setTimeout(() => {
+          //setHideModal(true);
           navigate(`/budgets/${budgetId}/expenses`);
-        }, 4500);
+        }, 1500);
       }
     }
 return(
@@ -75,13 +75,13 @@ return(
       Are you sure you want to delete {expense.itemName}? 
       </div>
       <div className="modal-footer">
+      <button type="button" className="btn btn-dark" data-bs-dismiss="modal" onClick={()=> handleDelete(expense._id)}>Yes</button>
         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" className="btn btn-primary" onClick={()=> handleDelete(expense._id)}>Yes</button>
       </div>
     </div>
   </div>
 </div>
-<ToastContainer/>
+<ToastContainer className="deleteModalToast" autoClose={1500}/>
 </>
 )
 }

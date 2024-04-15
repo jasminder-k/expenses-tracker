@@ -62,7 +62,7 @@ const ExpensesForm = ({ budgetId }) => {
     // setStatus("fetching");
     event.preventDefault();
     console.log(item, price, category, date);
-    const toastId = "test";
+    const toastId = "testExpense";
     const result = await sendData();
     if (result.status !== 201) {
       // setStatus("idle");
@@ -79,18 +79,14 @@ const ExpensesForm = ({ budgetId }) => {
       toast.success(result.message, {
         type: "success",
         position: "top-center",
-        autoClose: 4000, //4 seconds
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
+        autoClose: 1000, //4 seconds
         toastId,
         transition: Slide,
       });
       setTimeout(() => {
-        setHideForm(true);
+        setHideForm(!hideForm);
         navigate(`/budgets/${budgetId._id}/expenses`);
-      }, 4500);
+      }, 1500);
     }
   };
 
@@ -138,7 +134,7 @@ const ExpensesForm = ({ budgetId }) => {
               setCategory(event.target.value);
             }}
           >
-            <option selected>Select a category</option>
+            <option value={""}>Select a category</option>
             {categories &&
               categories.map((cat, index) => {
                 return (
@@ -175,13 +171,13 @@ const ExpensesForm = ({ budgetId }) => {
             type="button"
             className="btn btn-dark"
             onClick={() => {
-              setHideForm(true);
+              setHideForm(!hideForm);
             }}
           >
             Cancel
           </button>
+          <ToastContainer containerId={"expensesForm"}/>
         </div>
-        <ToastContainer />
       </form>
     </main>
   );

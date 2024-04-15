@@ -31,7 +31,7 @@ const signUpHandler = async (req, res) => {
       .findOne({ email: email });
     if (emailAlreadyInUse) {
       res.status(409).json({ status: 409, message: "Email already in use" });
-      return client.close();
+      //return client.close();
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = {

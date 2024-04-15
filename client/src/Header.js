@@ -11,9 +11,15 @@ const Header = () => {
 
   return (
     <nav className="navbar navbar-light">
-      <NavItem className="navbar-brand" to="/" style={{fontWeight:"bold"}}>
+      
+        {
+          /* Log in, log out  links go in here */
+          loggedInUser == null ? (
+            <>
+            <div>
+            <NavItem className="navbar-brand" to="/" style={{fontWeight:"bold"}}>
         <img
-          src="./assets/headerImage.jpg"
+          src="./assets/headerImage1.jpg"
           width="30"
           height="30"
           className="d-inline-block align-top"
@@ -21,23 +27,35 @@ const Header = () => {
         />
         Expenses Tracker
       </NavItem>
-      <div>
-        {
-          /* Log in, log out  links go in here */
-          loggedInUser == null ? (
+      </div>
             <div> 
              <NavItem to="/signIn" style={{color: "black", fontWeight:"bold"}}>Log in</NavItem>
             </div>
+            </>
           ) : (
-            <div>
+            <>
+              <div>
+              <NavItem className="navbar-brand" to="/loggedInHomepage" style={{fontWeight:"bold"}}>
+        <img
+          src="./assets/headerImage1.jpg"
+          width="30"
+          height="30"
+          className="d-inline-block align-top"
+          alt=""
+        />
+        Expenses Tracker
+      </NavItem>
+      </div>
+      <div>
               <NavItem to={"/budgets"} style={{color: "black", fontWeight:"bold"}}>Welcome {loggedInUser.name}</NavItem>
               <NavItem to="/" onClick={logOut} style={{color: "black", fontWeight:"bold"}}>
                 Log out
               </NavItem>
             </div>
+            </>
           )
         }
-      </div>
+
     </nav>
   );
 };

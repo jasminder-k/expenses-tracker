@@ -106,7 +106,7 @@ const EditExpenseForm = () => {
       toast.success(result.message, {
         type: "success",
         position: "top-center",
-        autoClose: 4000, //4 seconds
+        autoClose: 1000, //4 seconds
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -116,7 +116,7 @@ const EditExpenseForm = () => {
       });
       setTimeout(() => {
         navigate(`/budgets/${budgetId}/expenses`);
-      }, 4500);
+      }, 1500);
     }
   };
 

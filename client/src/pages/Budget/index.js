@@ -11,6 +11,7 @@ const Budget = ({ budgetId, setGenerateExcel }) => {
   const navigate = useNavigate();
   const fetchBudget = async () => {
     console.log(`/budget/${budgetId}`);
+    console.log(budgetId)
     const res = await fetch(`/budget/${budgetId}`);
     const result = await res.json();
     console.log(result);
@@ -32,17 +33,11 @@ const Budget = ({ budgetId, setGenerateExcel }) => {
   console.log(budget);
 
   return (
+    budget != null && 
     <>
-      <tr>
-        {budget &&
-          Object.values(budget).map((row, index) => (
-            <td
-              key={index}
-              onClick={() => navigate(`/budgets/${budget._id}/expenses`)}
-            >
-              {row}
-            </td>
-          ))}
+      <tr key={budget._id}>
+          <td onClick={() => navigate(`/budgets/${budget._id}/expenses`)}>{budget.expiryDate}</td>
+          <td onClick={() => navigate(`/budgets/${budget._id}/expenses`)}>{budget.totalBudget}</td>
         <td>
           <svg
           style={{height:"20px"}}

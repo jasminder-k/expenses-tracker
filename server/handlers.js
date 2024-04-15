@@ -12,6 +12,7 @@ const getExpense = require("./handlers/expenses/getExpenseHandler");
 const getExpensesOfABudget = require("./handlers/expenses/getExpensesOfABudgetHandler");
 const updateExpenseOfABudget = require("./handlers/expenses/updateExpenseOfABudgetHandler");
 const deleteExpense = require("./handlers/expenses/deleteExpenseHandler");
+const getSingleCategory = require("./handlers/categories/getSingleCategoryHandler");
 
 module.exports = {
   getCategories,
@@ -27,5 +28,6 @@ module.exports = {
   getExpense,
   getExpensesOfABudget,
   updateExpenseOfABudget,
-  deleteExpense
+  deleteExpense,
+  getSingleCategory
 };

@@ -44,13 +44,10 @@ const Expenses = () => {
   console.log(expenses);
 
   const headings = [
-    "ID",
     "Item",
     "Date",
     "Price",
-    "Category",
-    "Deleted",
-    "Budget",
+    "Category"
   ];
   return (
     <>
@@ -68,7 +65,7 @@ const Expenses = () => {
                 >
                   Add a new expense
                 </button>
-            {showModal && <Modal expense={showModal} userId={loggedInUser._id}/>}
+            <Modal expense={showModal} userId={loggedInUser._id}/>
             {expenses && expenses.length> 0 ? (
               <>
               <table className="table table-secondary" style={{maxWidth:"80vw", marginRight: "20vw", marginLeft: "10vw"}}>
@@ -106,6 +103,7 @@ const Expenses = () => {
           >
             Go back to Budgets list
           </button>
+          {showForm && <ExpensesForm budgetId={budgetId} />}
               </>
             ) : (
               <div>
@@ -135,9 +133,9 @@ const Expenses = () => {
           >
             Go back to Budgets list
           </button>
+          {showForm && <ExpensesForm budgetId={budgetId} />}
               </div>
             )}
-            {showForm && <ExpensesForm budgetId={budgetId} />}
           </main>
         ) : (
           <Centered>Loading ...</Centered>

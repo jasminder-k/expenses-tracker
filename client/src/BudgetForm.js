@@ -15,6 +15,7 @@ const BudgetForm = () => {
 
   const context = useContext(LoggedInUserContext);
   const loggedInUser = context.loggedInUser;
+  const addBudget = context.addBudget;
   const navigate = useNavigate();
 
   const sendData = async () => {
@@ -31,7 +32,7 @@ const BudgetForm = () => {
           totalBudget: totalValue,
           expiryDate: expiryDate,
           userId: loggedInUser._id,
-          _id: `budget_${expiryMonth}_${expiryYear}`,
+          _id: `budget_${loggedInUser._id}_${expiryMonth}_${expiryYear}`,
         }),
       });
       const responseData = await response.json();
@@ -60,6 +61,9 @@ const BudgetForm = () => {
       });
       //setErrorText(result.message || result.error);
     } else {
+      // set the addBudget over here
+      console.log(result);
+      addBudget(result.data._id);
       toast.success("Budget added successfully", {
         type: "success",
         position: "top-center",
@@ -72,9 +76,9 @@ const BudgetForm = () => {
         transition: Slide,
       });
       setTimeout(() => {
-        setHideForm(true);
+        setHideForm(!hideForm);
         navigate("/budgets");
-      }, 4500);
+      }, 1500);
     }
   };
 
@@ -112,9 +116,8 @@ const BudgetForm = () => {
             }}
           />
         </div>
-        <div style={{ marginTop: "8vh", marginLeft: "24vh" }}>
+        <div style={{ marginTop: "8vh" }}>
           <button
-            style={{ marginLeft: "5vw" }}
             type="submit"
             className="btn btn-dark"
           >
@@ -125,11 +128,10 @@ const BudgetForm = () => {
             type="button"
             className="btn btn-dark"
             onClick={() => {
-              setHideForm(true);
-              navigate("/budgets");
+              setHideForm(!hideForm);
             }}
           >
-            Go back to Budgets list
+            Cancel
           </button>
         </div>
         <ToastContainer />

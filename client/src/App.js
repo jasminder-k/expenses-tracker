@@ -14,6 +14,7 @@ import Expense from "./pages/Expense";
 import EditExpenseForm from "./pages/EditExpenseForm";
 import Homepage from "./pages/Homepage";
 import Footer from "./Footer";
+import LoggedInHomepage from "./pages/LoggedInHomePage";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/expense/:_id" element={<Expense/>}/>
         <Route path="/budgets/:_id/expenses" element={<Expenses/>}/>
         <Route path="/budgets/:budgetId/expenses/:expenseId" element={<EditExpenseForm/>}/>
+        <Route path="/loggedInHomepage" element={<LoggedInHomepage/>}/>
       </Switch>
       <Footer/>
     </Router>

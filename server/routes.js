@@ -12,7 +12,8 @@ const {
     getExpense,
     getExpensesOfABudget,
     updateExpenseOfABudget,
-    deleteExpense
+    deleteExpense,
+    getSingleCategory
   } = require("./handlers");
   
   const router = require("express").Router();
@@ -21,6 +22,7 @@ const {
   router.post("/createCategory", createCategory);
   router.patch("/updateCategory", updateCategory);
   router.delete("/deleteCategory/:id", deleteCategory);
+  router.get("/categories/:id", getSingleCategory);
   router.post("/signin", signIn);
   router.post("/signup", signUp);
   router.post("/createBudget", createBudget);

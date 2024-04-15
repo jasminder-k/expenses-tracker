@@ -16,11 +16,15 @@ const LoggedInUserContextProvider = ({ children }) => {
     };
     setLoggedInUser(user);
   };
+  const addBudget = (newbudget) => {
+    setLoggedInUser({...loggedInUser, budgets: [...loggedInUser.budgets, newbudget]},)
+    console.log(loggedInUser)
+  }
   const logOut = () => {
     setLoggedInUser(null);
   };
   return (
-    <LoggedInUserContext.Provider value={{ loggedInUser, logIn, logOut }}>
+    <LoggedInUserContext.Provider value={{ loggedInUser, logIn, logOut, addBudget }}>
       {children}
     </LoggedInUserContext.Provider>
   );
