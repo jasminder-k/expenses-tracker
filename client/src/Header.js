@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <nav className="navbar navbar-light">
-      <NavItem className="navbar-brand" to="/">
+      <NavItem className="navbar-brand" to="/" style={{fontWeight:"bold"}}>
         <img
           src="./assets/headerImage.jpg"
           width="30"
@@ -25,13 +25,13 @@ const Header = () => {
         {
           /* Log in, log out  links go in here */
           loggedInUser == null ? (
-            <div>
-              <NavItem to="/signIn">Log in</NavItem>
+            <div> 
+             <NavItem to="/signIn" style={{color: "black", fontWeight:"bold"}}>Log in</NavItem>
             </div>
           ) : (
             <div>
-              <NavItem to={"/budgets"}>Welcome {loggedInUser.name}</NavItem>
-              <NavItem to="/" onClick={logOut}>
+              <NavItem to={"/budgets"} style={{color: "black", fontWeight:"bold"}}>Welcome {loggedInUser.name}</NavItem>
+              <NavItem to="/" onClick={logOut} style={{color: "black", fontWeight:"bold"}}>
                 Log out
               </NavItem>
             </div>

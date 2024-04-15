@@ -61,9 +61,9 @@ const Expenses = () => {
           <main>
             <h1 style={{textAlign: "center"}}>Expenses </h1>
              <button
-                  style={{ marginLeft: "75vw", marginTop: "4vh" }}
+                  style={{ marginLeft: "75vw", marginTop: "4vh", marginBottom:"4vh" }}
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-dark"
                   onClick={() => setShowForm(true)}
                 >
                   Add a new expense
@@ -71,9 +71,9 @@ const Expenses = () => {
             {showModal && <Modal expense={showModal} userId={loggedInUser._id}/>}
             {expenses && expenses.length> 0 ? (
               <>
-              <table className="table">
+              <table className="table table-secondary" style={{maxWidth:"80vw", marginRight: "20vw", marginLeft: "10vw"}}>
                 <thead>
-                  <tr>
+                  <tr className="table-dark">
                     {headings.map((head, index) => (
                       <th key={index} scope="col">
                         {head}
@@ -84,10 +84,10 @@ const Expenses = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {expenses.map((expense) => {
+                  {expenses.map((expense, index) => {
                     return (
                       <Expense
-                        key={expense}
+                        key={expense._id}
                         budgetId={budgetId}
                         expenseId={expense}
                         showModal={showModal}
@@ -97,9 +97,9 @@ const Expenses = () => {
                 </tbody>
               </table>
               <button
-            style={{ marginLeft: "25vw" }}
+            style={{ marginLeft: "10vw" }}
             type="button"
-            className="btn btn-primary"
+            className="btn btn-dark"
             onClick={() => {
               navigate("/budgets");
             }}
@@ -111,7 +111,7 @@ const Expenses = () => {
               <div>
                 <table
                   hidden={showForm}
-                  style={{ marginTop: "10vh" }}
+                  style={{maxWidth:"80vw", marginRight: "20vw", marginLeft: "10vw",  marginTop: "10vh"}}
                   className="table"
                 >
                   <thead>
@@ -126,9 +126,9 @@ const Expenses = () => {
                   </tbody>
                 </table>
                 <button
-            style={{ marginLeft: "2vw" }}
+            style={{ marginTop: "8vh", marginLeft: "24vh" }}
             type="button"
-            className="btn btn-primary"
+            className="btn btn-dark"
             onClick={() => {
               navigate("/budgets");
             }}

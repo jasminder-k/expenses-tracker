@@ -96,7 +96,7 @@ const ExpensesForm = ({ budgetId }) => {
 
   return (
     <main hidden={hideForm}>
-      <form onSubmit={(event) => handleSubmit(event)}>
+      <form onSubmit={(event) => handleSubmit(event)} style={{maxWidth:"80vw", marginRight: "20vw", marginLeft: "10vw"}}>
         <div className="mb-1">
           <h1>Create Expense</h1>
         </div>
@@ -166,20 +166,19 @@ const ExpensesForm = ({ budgetId }) => {
           <button
             style={{ marginLeft: "5vw" }}
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-dark"
           >
             Save
           </button>
           <button
             style={{ marginLeft: "2vw" }}
             type="button"
-            className="btn btn-primary"
+            className="btn btn-dark"
             onClick={() => {
               setHideForm(true);
-              navigate(`/budgets/${budgetId._id}/expenses`);
             }}
           >
-            Go back to Expenses list
+            Cancel
           </button>
         </div>
         <ToastContainer />

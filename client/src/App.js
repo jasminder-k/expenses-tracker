@@ -13,6 +13,7 @@ import Expenses from "./pages/Expenses";
 import Expense from "./pages/Expense";
 import EditExpenseForm from "./pages/EditExpenseForm";
 import Homepage from "./pages/Homepage";
+import Footer from "./Footer";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/budgets/:_id/expenses" element={<Expenses/>}/>
         <Route path="/budgets/:budgetId/expenses/:expenseId" element={<EditExpenseForm/>}/>
       </Switch>
+      <Footer/>
     </Router>
   );
 };

@@ -88,7 +88,7 @@ const SignIn = () => {
         </div>
         <button
           type="submit"
-          className="btn btn-primary"
+          className="btn btn-dark"
           disabled={status !== "idle"}
         >
           {status === "fetching" ? "Signing in" : "Sign in"}

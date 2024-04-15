@@ -116,7 +116,7 @@ const SignUp = () => {
             }}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-dark">
           Sign up
         </button>
         {errorText !== null && (

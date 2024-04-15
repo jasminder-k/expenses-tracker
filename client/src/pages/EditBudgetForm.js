@@ -14,7 +14,7 @@ const EditBudgetForm = () => {
     const [budget, setBudget] =  useState(null);
 const [totalValue, setTotalValue] = useState(null);
   const [expiryDate, setExpiryDate] = useState(null);
-  /* const [hideForm, setHideForm] = useState(false);*/
+  const [hideForm, setHideForm] = useState(false);
   const context = useContext(LoggedInUserContext);
   const loggedInUser = context.loggedInUser;
 
@@ -105,7 +105,7 @@ const [totalValue, setTotalValue] = useState(null);
 
   return (
     <main>
-     {budget!= null && <form onSubmit={(event) => handleSubmit(event)}>
+     {budget!= null && <form onSubmit={(event) => handleSubmit(event)} style={{maxWidth:"80vw", marginRight: "20vw", marginLeft: "10vw"}}>
         <div className="mb-1">
           <h1>Update Budget</h1>
         </div>
@@ -133,13 +133,23 @@ const [totalValue, setTotalValue] = useState(null);
             }}
           />
         </div>
-        <div style={{ marginTop: "8vh", marginLeft: "24vh" }}>
+        <div style={{ marginTop: "8vh" }}>
           <button
             style={{ marginLeft: "5vw" }}
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-dark"
           >
             Save
+          </button>
+          <button
+            style={{ marginLeft: "2vw" }}
+            type="button"
+            className="btn btn-dark"
+            onClick={() => {
+              navigate("/budgets");
+            }}
+          >
+            Cancel
           </button>
         </div>
         <ToastContainer />

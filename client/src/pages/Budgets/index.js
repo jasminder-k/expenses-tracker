@@ -28,7 +28,7 @@ const Budgets = () => {
                   <button
                   style={{ marginLeft: "83vw", marginTop: "4vh", marginBottom:"4vh" }}
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-dark"
                   onClick={() => setShowForm(true)}
                   hidden = {showForm}
                 >
@@ -37,14 +37,14 @@ const Budgets = () => {
                 {generateExcel && <GenerateExcel budget={generateExcel}/>}
             {loggedInUser.budgets.length > 0 ? (
               <>
-                <table className="table" style={{maxWidth:"80vw", marginRight: "20vw", marginLeft: "10vw"}}>
+                <table className="table table-secondary  table-hover" style={{maxWidth:"80vw", marginRight: "20vw", marginLeft: "10vw"}}>
                 <thead>
-                  <tr>
+                  <tr className="table-dark">
                     {headings.map((head, index) => (
                       <th key={index} scope="col">{head}</th>
                     ))}
                     <th scope ="col">Edit</th>
-                    <th scope="col">Delete</th>
+                    <th scope="col" hidden={true}>Delete</th>
                     <th scope="col">Download</th>
                   </tr>
                 </thead>
@@ -58,7 +58,7 @@ const Budgets = () => {
                 <button
                   style={{ marginLeft: "75vw", marginTop: "4vh" }}
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-dark"
                   onClick={() => setShowForm(true)}
                 >
                   Create budget
